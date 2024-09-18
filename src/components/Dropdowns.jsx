@@ -18,8 +18,8 @@ const data = {
     "Santa Catarina": ["Ferrugem", "Campeche"],
   },
   Australia: {
-    NSW: ["Manly", "Avoca"],
-    WA: ["Margaret River", "Perth"],
+    "NSW": ["Manly", "Avoca"],
+    "WA": ["Margaret River", "Perth"],
   },
 };
 
