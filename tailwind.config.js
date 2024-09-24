@@ -8,6 +8,7 @@ export const content = [
 export const theme = {
 	extend: {
 		colors: {
+			blue: '#22d3ee',
 			background: 'hsl(var(--background))',
 			foreground: 'hsl(var(--foreground))',
 			card: {
