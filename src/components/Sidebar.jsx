@@ -37,7 +37,7 @@ export const Sidebar = () => {
       </div>
 
       {/* This is the desktop version of the sidebar */}
-      <aside className='fixed inset-y-0 left-0 z-10 hidden w-40 border-r bg-stone-950/40 sm:flex'>
+      <aside className='fixed inset-y-0 left-0 z-10 hidden w-40 border-r border-slate-500 bg-stone-950/40 sm:flex'>
         <div className='w-full p-4 flex flex-col gap-10'>
           <p>(login)</p>
           <Dropdowns />
