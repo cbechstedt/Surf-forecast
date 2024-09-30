@@ -1,10 +1,20 @@
-import React from 'react'
+'use client'
+
+import React, {useState} from 'react'
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet'
 import { Button } from './ui/button'
 import { PanelLeftOpen, HandMetal } from 'lucide-react'
 import { Dropdowns } from './Dropdowns'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 
 export const Sidebar = () => {
+  const [inputBeach, setInputBeach] = useState('');
+
+  const handleChange = (event) => {
+    setInputBeach(event.target.value);
+  };
+
   return (
     <div className='flex w-full flex-col bg-stone-950/40'>
 
@@ -18,9 +28,9 @@ export const Sidebar = () => {
                 <PanelLeftOpen className='w-5 h-5' />
               </Button>
             </SheetTrigger>
-            <SheetContent side='left' className='flex flex-col border-slate-500'>
+            <SheetContent side='left' className='flex flex-col border-slate-500 gap-10'>
               <SheetHeader>
-                <SheetTitle className='flex flex-row justify-center gap-1 mb-10' >
+                <SheetTitle className='flex flex-row justify-center gap-2 mb-10' >
                   Find your wave
                   <HandMetal />
                 </SheetTitle>
@@ -28,7 +38,13 @@ export const Sidebar = () => {
                   Search for the best surf spots around the world
                 </SheetDescription>
               </SheetHeader>
-              <Dropdowns />
+              <div>
+                <Dropdowns />
+              </div>
+              <div>
+                <Label htmlFor='inputBeach' >Or type a beach</Label>
+                <Input id='inputBeach' placeholder='beach' />
+              </div>
               login
             </SheetContent>
           </Sheet>
@@ -41,7 +57,9 @@ export const Sidebar = () => {
         <div className='w-full p-4 flex flex-col gap-10'>
           <p>(login)</p>
           <Dropdowns />
+          <Input onChange={handleChange} value={inputBeach} placeholder='Or type a beach' />
         </div>
+
       </aside>
 
 

@@ -1,9 +1,9 @@
-const marineWeatherDaily = async (lat, lon) => {
+  export const marineWeatherDaily = async (lat, lon) => {
   try {
     const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_direction_dominant,wave_period_max&timezone=America%2FSao_Paulo`;
-    
+
     const response = await fetch(url);
-    
+
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.statusText}`);
@@ -36,12 +36,12 @@ const marineWeatherDaily = async (lat, lon) => {
   }
 };
 
-const marineWeatherCurrrent = async (lat, lon) => {
+  export const marineWeatherCurrrent = async (lat, lon) => {
   try {
     const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=America%2FSao_Paulo`;
-    
+
     const response = await fetch(url);
-    
+
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.statusText}`);
@@ -73,4 +73,35 @@ const marineWeatherCurrrent = async (lat, lon) => {
     return null;
   }
 };
+
+  export const geoLocation = async (name) => {
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=10&language=pt&format=json`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Erro na requisição: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.results) {
+      throw new Error('Dados de geolocalização não disponíveis');
+    }
+
+    const responseMAp = data.results.map((beach) => {
+      return {
+        name: beach.name,
+        country: beach.country,
+        lat: beach.latitude,
+        lon: beach.longitude
+      };
+    })
+
+    return responseMAp;
+  } catch (error) {
+    console.error('Erro ao buscar os dados de geolocalização:', error);
+    return null;
+  }
+}
 
