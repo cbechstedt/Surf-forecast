@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { marineWeatherCurrrent } from '../services/openMeteoApi';
+import { useMarineData } from '../context/MarineDataContext';
 
 const data = {
   Brazil: {
@@ -40,9 +41,11 @@ export const Dropdowns = () => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedBeach, setSelectedBeach] = useState(null);
-  const [marineCurrentData, setMarineCurrentData] = useState(null);
+  // const [marineCurrentData, setMarineCurrentData] = useState(null);
   const [marineForecastData, setMarineForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { setMarineCurrentData } = useMarineData();
 
   // Carregar regiões baseado no país selecionado
   const regions = selectedCountry ? Object.keys(data[selectedCountry]) : [];
@@ -77,7 +80,7 @@ export const Dropdowns = () => {
     };
 
     fetchMarineData();
-  }, [selectedBeach]);
+  }, [selectedBeach, setMarineCurrentData]);
 
   return (
     <div className="flex flex-col gap-7">

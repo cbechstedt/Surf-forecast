@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {
   Card,
@@ -9,9 +11,12 @@ import {
 } from "@/components/ui/card"
 import { Ruler, Waves, Wind, Hourglass } from 'lucide-react'
 import { ChartOverview } from './ChartOverview'
-
+import { useMarineData } from '../context/MarineDataContext'
+import { degreesToCardinal } from '@/utils/degreesToCardinal'
 
 export const SurfDashboard = () => {
+  const { marineCurrentData } = useMarineData();
+
   return (
     <div className='flex flex-col gap-4'>
       <h1>campeche</h1>
@@ -22,7 +27,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Ruler />
-            <p>2 m</p>
+            <p>{marineCurrentData?.waveHeight} m</p>
           </CardContent>
         </Card>
 
@@ -32,7 +37,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Waves />
-            <p>SE</p>
+            <p>{degreesToCardinal(marineCurrentData?.waveDirection)}</p>
           </CardContent>
         </Card>
 
@@ -52,7 +57,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Hourglass />
-            <p>10 s</p>
+            <p>{marineCurrentData.wavePeriod} s</p>
           </CardContent>
         </Card>
 
