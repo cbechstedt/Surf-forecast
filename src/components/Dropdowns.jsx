@@ -39,7 +39,7 @@ const data = {
 export const Dropdowns = () => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
-  const [selectedBeach, setSelectedBeach] = useState('');
+  const [selectedBeach, setSelectedBeach] = useState(null);
   const [marineCurrentData, setMarineCurrentData] = useState(null);
   const [marineForecastData, setMarineForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -48,23 +48,24 @@ export const Dropdowns = () => {
   const regions = selectedCountry ? Object.keys(data[selectedCountry]) : [];
 
   // Carregar praias baseado na região selecionada
-  const beaches = selectedRegion ? data[selectedCountry][selectedRegion].map((el)=>{
-    return el.name;
+  const beaches = selectedRegion ? data[selectedCountry][selectedRegion].map(({ name, lat, lon }) => {
+    return {
+      name,
+      lat,
+      lon
+    };
   }) : [];
 
   useEffect(() => {
     const fetchMarineData = async () => {
       if (!selectedBeach) return;
-      
+
       setLoading(true);
       try {
-        console.log(selectedBeach);
-        
         const { lat, lon } = selectedBeach;
         const marineCurrentData = await marineWeatherCurrrent(lat, lon);
         setMarineCurrentData(marineCurrentData);
         console.log(marineCurrentData);
-        
 
       } catch (error) {
         console.error('Erro ao buscar os dados da API:', error);
@@ -127,16 +128,18 @@ export const Dropdowns = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" disabled={!selectedRegion}>
-            {selectedBeach || "Select Beach"}
+            {selectedBeach?.name || "Select Beach"}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel>Beach</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup value={selectedBeach} onValueChange={setSelectedBeach}>
+          <DropdownMenuRadioGroup value={selectedBeach?.name} onValueChange={(value) => {
+            setSelectedBeach(beaches.find((beach) => beach.name === value));
+          }}>
             {beaches.map((beach) => (
-              <DropdownMenuRadioItem key={beach} value={beach}>
-                {beach}
+              <DropdownMenuRadioItem key={beach.name} value={beach.name}>
+                {beach.name}
               </DropdownMenuRadioItem>
             ))}
           </DropdownMenuRadioGroup>

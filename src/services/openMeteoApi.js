@@ -6,7 +6,7 @@
 
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.statusText}`);
+      throw new Error(`Erro na requisição MarineWeatherDaily`);
     }
 
     const data = await response.json();
@@ -39,12 +39,12 @@
   export const marineWeatherCurrrent = async (lat, lon) => {
   try {
     const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=America%2FSao_Paulo`;
-
+    
     const response = await fetch(url);
 
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.statusText}`);
+      throw new Error(`Erro na requisição MarineWeatherCurrrent`);
     }
 
     const data = await response.json();
@@ -80,7 +80,7 @@
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.statusText}`);
+      throw new Error(`Erro na requisição geoLocation`);
     }
 
     const data = await response.json();
