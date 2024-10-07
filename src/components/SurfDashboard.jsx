@@ -15,11 +15,11 @@ import { useMarineData } from '../context/MarineDataContext'
 import { degreesToCardinal } from '@/utils/degreesToCardinal'
 
 export const SurfDashboard = () => {
-  const { marineCurrentData, windCurrentData } = useMarineData();
+  const { marineCurrentData, windCurrentData, selectedBeach } = useMarineData();
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1>campeche</h1>
+      <h1>{selectedBeach?.name || 'Select a beach'}</h1>
       <section className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
         <Card className='text-blue bg-slate-600/5 border-blue/30'>
           <CardHeader>
@@ -69,7 +69,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent>
             <CardDescription>
-              This is a description of the surf conditions at Campeche
+              {selectedBeach ? `This is a description of the surf conditions at ${selectedBeach?.name}` : ''}
             </CardDescription>
             <ChartOverview />
           </CardContent>

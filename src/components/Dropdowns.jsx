@@ -40,12 +40,12 @@ const data = {
 export const Dropdowns = () => {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
-  const [selectedBeach, setSelectedBeach] = useState(null);
+  // const [selectedBeach, setSelectedBeach] = useState(null);
   // const [marineCurrentData, setMarineCurrentData] = useState(null);
   const [marineForecastData, setMarineForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { setMarineCurrentData, setWindCurrentData, setMarineWeekData } = useMarineData();
+  const { setMarineCurrentData, setWindCurrentData, setMarineWeekData, selectedBeach,setSelectedBeach } = useMarineData();
 
   // Carregar regiões baseado no país selecionado
   const regions = selectedCountry ? Object.keys(data[selectedCountry]) : [];

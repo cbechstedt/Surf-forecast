@@ -16,13 +16,6 @@ export function ChartOverview() {
 
   const weekDays = time?.map((day) => formatDate(day)) || [];
 
-  console.log('MARINE DATA', marineWeekData);
-  
-
-  console.log('weekDays', weekDays);
-  console.log('waveHeight', waveHeight);
-  console.log('wavePeriod', wavePeriod);  
-
   const chartData = hasValidData ? [
     { day: weekDays[0], waveHeight: waveHeight[0], wavePeriod: wavePeriod[0] },
     { day: weekDays[1], waveHeight: waveHeight[1], wavePeriod: wavePeriod[1] },

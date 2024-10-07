@@ -10,6 +10,7 @@ export const MarineDataProvider = ({ children }) => {
   const [marineCurrentData, setMarineCurrentData] = useState(null);
   const [windCurrentData, setWindCurrentData] = useState(null);
   const [marineWeekData, setMarineWeekData] = useState(null);
+  const [selectedBeach, setSelectedBeach] = useState(null);
 
   const values = {
     marineCurrentData,
@@ -17,7 +18,9 @@ export const MarineDataProvider = ({ children }) => {
     windCurrentData,
     setWindCurrentData,
     marineWeekData,
-    setMarineWeekData
+    setMarineWeekData,
+    selectedBeach,
+    setSelectedBeach,
   }
 
   return (
