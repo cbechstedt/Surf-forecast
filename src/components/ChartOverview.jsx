@@ -3,35 +3,54 @@
 import React from 'react'
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
+import { useMarineData } from '@/context/MarineDataContext'
+import { formatDate } from '@/utils/formatDate'
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-}
 
 export function ChartOverview() {
+  
+  const { marineWeekData } = useMarineData();
+  const { time, waveHeight, wavePeriod } = marineWeekData || {};
+  
+  const hasValidData = time?.length === 7 && waveHeight?.length === 7 && wavePeriod?.length === 7;
+
+  const weekDays = time?.map((day) => formatDate(day)) || [];
+
+  console.log('MARINE DATA', marineWeekData);
+  
+
+  console.log('weekDays', weekDays);
+  console.log('waveHeight', waveHeight);
+  console.log('wavePeriod', wavePeriod);  
+
+  const chartData = hasValidData ? [
+    { day: weekDays[0], waveHeight: waveHeight[0], wavePeriod: wavePeriod[0] },
+    { day: weekDays[1], waveHeight: waveHeight[1], wavePeriod: wavePeriod[1] },
+    { day: weekDays[2], waveHeight: waveHeight[2], wavePeriod: wavePeriod[2] },
+    { day: weekDays[3], waveHeight: waveHeight[3], wavePeriod: wavePeriod[3] },
+    { day: weekDays[4], waveHeight: waveHeight[4], wavePeriod: wavePeriod[4] },
+    { day: weekDays[5], waveHeight: waveHeight[5], wavePeriod: wavePeriod[5] },
+    { day: weekDays[6], waveHeight: waveHeight[6], wavePeriod: wavePeriod[6] },
+  ] : [];
+  
+  const chartConfig = {
+    waveHeight: {
+      label: "Wave Height",
+      color: "#2563eb",
+    },
+    wavePeriod: {
+      label: "Wave Period",
+      color: "#60a5fa",
+    },
+  }
+
   return (
     <div>
       <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="month"
+            dataKey="day"
             tickLine={false}
             tickMargin={10}
             axisLine={false}
@@ -39,8 +58,8 @@ export function ChartOverview() {
           />
           <ChartTooltip content={<ChartTooltipContent className='text-white bg-black' />} />
           <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-          <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+          <Bar dataKey="waveHeight" fill="var(--color-waveHeight)" radius={4} />
+          <Bar dataKey="wavePeriod" fill="var(--color-wavePeriod)" radius={4} />
         </BarChart>
       </ChartContainer>
 

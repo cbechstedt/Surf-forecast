@@ -15,7 +15,7 @@ import { useMarineData } from '../context/MarineDataContext'
 import { degreesToCardinal } from '@/utils/degreesToCardinal'
 
 export const SurfDashboard = () => {
-  const { marineCurrentData } = useMarineData();
+  const { marineCurrentData, windCurrentData } = useMarineData();
 
   return (
     <div className='flex flex-col gap-4'>
@@ -47,7 +47,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Wind />
-            <p>15 km/h NW</p>
+            <p>{windCurrentData?.windSpeed} km/h {degreesToCardinal(windCurrentData?.windDirection)}</p>
           </CardContent>
         </Card>
 
@@ -57,7 +57,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Hourglass />
-            <p>{marineCurrentData.wavePeriod} s</p>
+            <p>{marineCurrentData?.wavePeriod} s</p>
           </CardContent>
         </Card>
 

@@ -8,10 +8,16 @@ export const MarineDataContext = createContext();
 // Provider para envolver a aplicação
 export const MarineDataProvider = ({ children }) => {
   const [marineCurrentData, setMarineCurrentData] = useState(null);
+  const [windCurrentData, setWindCurrentData] = useState(null);
+  const [marineWeekData, setMarineWeekData] = useState(null);
 
   const values = {
     marineCurrentData,
-    setMarineCurrentData
+    setMarineCurrentData,
+    windCurrentData,
+    setWindCurrentData,
+    marineWeekData,
+    setMarineWeekData
   }
 
   return (

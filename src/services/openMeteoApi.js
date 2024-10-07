@@ -1,6 +1,6 @@
 export const marineWeatherDaily = async (lat, lon) => {
   try {
-    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_direction_dominant,wave_period_max&timezone=America%2FSao_Paulo`;
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max&timezone=GMT`;
 
     const response = await fetch(url);
 
@@ -16,17 +16,16 @@ export const marineWeatherDaily = async (lat, lon) => {
       throw new Error('Dados diários não disponíveis');
     }
 
-    const { wave_height_max, wave_direction_dominant, wave_period_max, time } = data.daily;
+    const { daily: {time, wave_height_max, wave_period_max} } = data;
 
     // Validação adicional para garantir que os dados existam
-    if (!wave_height_max || !wave_direction_dominant || !wave_period_max || !time) {
+    if (!time || !wave_height_max || !wave_period_max) {
       throw new Error('Dados incompletos retornados pela API');
     }
 
     return {
-      waveHeightMax: wave_height_max,
-      waveDirectionDominant: wave_direction_dominant,
-      wavePeriodMax: wave_period_max,
+      waveHeight: wave_height_max,
+      wavePeriod: wave_period_max,
       time
     };
 
@@ -38,7 +37,7 @@ export const marineWeatherDaily = async (lat, lon) => {
 
 export const marineWeatherCurrrent = async (lat, lon) => {
   try {
-    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=America%2FSao_Paulo`;
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=GMT`;
 
     const response = await fetch(url);
 
@@ -105,7 +104,7 @@ export const geoLocation = async (name) => {
   }
 }
 
-export const windForecast = async (lat, lon) => {
+export const windForecastCurrent = async (lat, lon) => {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m`;
     const response = await fetch(url);
@@ -117,7 +116,7 @@ export const windForecast = async (lat, lon) => {
     const data = await response.json();
 
     if (!data.current) {
-      throw new Error('Dados da corrente não disponíveis');
+      throw new Error('Dados de vento não disponíveis');
     }
 
     const { wind_speed_10m, wind_direction_10m } = data.current;
