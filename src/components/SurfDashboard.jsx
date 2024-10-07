@@ -19,7 +19,7 @@ export const SurfDashboard = () => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1>{selectedBeach?.name || 'Select a beach'}</h1>
+      <h1 className='text-blue text-base sm:text-xl'>{selectedBeach?.name || 'Select a beach'}</h1>
       <section className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
         <Card className='text-blue bg-slate-600/5 border-blue/30'>
           <CardHeader>

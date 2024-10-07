@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet'
 import { Button } from './ui/button'
 import { PanelLeftOpen, HandMetal } from 'lucide-react'
@@ -11,9 +11,9 @@ import { Label } from './ui/label'
 export const Sidebar = () => {
   const [inputBeach, setInputBeach] = useState('');
 
-  const handleChange = (event) => {
-    setInputBeach(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setInputBeach(event.target.value);
+  // };
 
   return (
     <div className='flex w-full flex-col bg-stone-950/40'>
@@ -41,11 +41,10 @@ export const Sidebar = () => {
               <div>
                 <Dropdowns />
               </div>
-              <div>
+              {/* <div>
                 <Label htmlFor='inputBeach' >Or type a beach</Label>
                 <Input id='inputBeach' placeholder='beach' />
-              </div>
-              login
+              </div> */}
             </SheetContent>
           </Sheet>
           <h2>Menu</h2 >
@@ -53,14 +52,13 @@ export const Sidebar = () => {
       </div>
 
       {/* This is the desktop version of the sidebar */}
-      <aside className='fixed inset-y-0 left-0 z-10 hidden w-40 border-r border-slate-500 bg-stone-950/40 sm:flex'>
+      <aside className='fixed inset-0 z-10 hidden w-40 border-r border-slate-500 bg-stone-950/40 sm:flex pt-20'>
         <div className='w-full p-4 flex flex-col gap-10'>
-          <p>(login)</p>
           <Dropdowns />
-          <Input onChange={handleChange} value={inputBeach} placeholder='Or type a beach' />
+          {/* <Input onChange={handleChange} value={inputBeach} placeholder='Or type a beach' /> */}
         </div>
-
       </aside>
+
 
 
     </div>

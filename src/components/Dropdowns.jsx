@@ -13,29 +13,7 @@ import {
 } from './ui/dropdown-menu';
 import { marineWeatherCurrrent, windForecastCurrent, marineWeatherDaily } from '../services/openMeteoApi';
 import { useMarineData } from '../context/MarineDataContext';
-
-const data = {
-  Brazil: {
-    "Rio Grande do Sul": [
-      { name: "Atlantida", lat: -29.654, lon: -50.010 },
-      { name: "Torres", lat: -29.335, lon: -49.728 }
-    ],
-    "Santa Catarina": [
-      { name: "Ferrugem", lat: -28.022, lon: -48.620 },
-      { name: "Campeche", lat: -27.670, lon: -48.481 }
-    ]
-  },
-  Australia: {
-    "NSW": [
-      { name: "Manly", lat: -33.800, lon: 151.287 },
-      { name: "Avoca", lat: -33.459, lon: 151.436 }
-    ],
-    "WA": [
-      { name: "Margaret River", lat: -33.951, lon: 115.073 },
-      { name: "Perth", lat: -31.950, lon: 115.860 }
-    ]
-  }
-};
+import { beachData } from '@/utils/beaches';
 
 export const Dropdowns = () => {
   const [selectedCountry, setSelectedCountry] = useState('');
@@ -48,10 +26,10 @@ export const Dropdowns = () => {
   const { setMarineCurrentData, setWindCurrentData, setMarineWeekData, selectedBeach,setSelectedBeach } = useMarineData();
 
   // Carregar regiões baseado no país selecionado
-  const regions = selectedCountry ? Object.keys(data[selectedCountry]) : [];
+  const regions = selectedCountry ? Object.keys(beachData[selectedCountry]) : [];
 
   // Carregar praias baseado na região selecionada
-  const beaches = selectedRegion ? data[selectedCountry][selectedRegion].map(({ name, lat, lon }) => {
+  const beaches = selectedRegion ? beachData[selectedCountry][selectedRegion].map(({ name, lat, lon }) => {
     return {
       name,
       lat,
