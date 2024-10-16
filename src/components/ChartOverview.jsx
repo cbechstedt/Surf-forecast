@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
 import { useMarineData } from '@/context/MarineDataContext'
@@ -8,10 +8,9 @@ import { formatDate } from '@/utils/formatDate'
 
 
 export function ChartOverview() {
-  
   const { marineWeekData } = useMarineData();
   const { time, waveHeight, wavePeriod } = marineWeekData || {};
-  
+
   const hasValidData = time?.length === 7 && waveHeight?.length === 7 && wavePeriod?.length === 7;
 
   const weekDays = time?.map((day) => formatDate(day)) || [];
@@ -25,7 +24,7 @@ export function ChartOverview() {
     { day: weekDays[5], waveHeight: waveHeight[5], wavePeriod: wavePeriod[5] },
     { day: weekDays[6], waveHeight: waveHeight[6], wavePeriod: wavePeriod[6] },
   ] : [];
-  
+
   const chartConfig = {
     waveHeight: {
       label: "Wave Height",
@@ -37,6 +36,24 @@ export function ChartOverview() {
     },
   }
 
+  // Estado para monitorar o tamanho da tela
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1020px)');
+    setIsSmallScreen(mediaQuery.matches);
+
+    const handleResize = (e) => {
+      setIsSmallScreen(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
+
   return (
     <div>
       <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
@@ -47,7 +64,8 @@ export function ChartOverview() {
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-          // tickFormatter={(value) => value.slice(0, 3)}
+            // Condicional para aplicar o tickFormatter com base no tamanho da tela
+            tickFormatter={(value) => isSmallScreen ? value.slice(0, 3) : value}
           />
           <ChartTooltip content={<ChartTooltipContent className='text-white bg-black' />} />
           <ChartLegend content={<ChartLegendContent />} />
