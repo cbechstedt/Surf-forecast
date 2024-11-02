@@ -13,6 +13,7 @@ import { Ruler, Waves, Wind, Hourglass } from 'lucide-react'
 import { ChartOverview } from './ChartOverview'
 import { useMarineData } from '../context/MarineDataContext'
 import { degreesToCardinal } from '@/utils/degreesToCardinal'
+import { Maps } from './Maps'
 
 export const SurfDashboard = () => {
   const { marineCurrentData, windCurrentData, selectedBeach } = useMarineData();
@@ -21,7 +22,7 @@ export const SurfDashboard = () => {
     <div className='flex flex-col gap-4'>
       <h1 className='text-blue text-base sm:text-xl'>{selectedBeach?.name || 'Select a beach'}</h1>
       <section className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
-        <Card className='text-blue bg-slate-600/5 border-blue/80 border-2'>
+        <Card className='text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Wave Height</CardTitle>
           </CardHeader>
@@ -31,7 +32,7 @@ export const SurfDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className='text-blue bg-slate-600/5 border-blue/80 border-2'>
+        <Card className='text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Swell Direction</CardTitle>
           </CardHeader>
@@ -41,7 +42,7 @@ export const SurfDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className='text-blue bg-slate-600/5 border-blue/80 border-2'>
+        <Card className='text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Wind</CardTitle>
           </CardHeader>
@@ -51,7 +52,7 @@ export const SurfDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className='text-blue bg-slate-600/5 border-blue/80 border-2'>
+        <Card className='text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Period</CardTitle>
           </CardHeader>
@@ -63,7 +64,7 @@ export const SurfDashboard = () => {
 
       </section>
       <section>
-        <Card className='w-full md:w-2/3 md:max-w-[900px] text-blue bg-slate-600/5 border-blue/80 border-2'>
+        <Card className='w-full md:w-2/3 md:max-w-[900px] text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Description</CardTitle>
           </CardHeader>
@@ -75,6 +76,7 @@ export const SurfDashboard = () => {
           </CardContent>
         </Card>
       </section>
+      <Maps />
     </div>
   )
 

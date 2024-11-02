@@ -105,8 +105,9 @@ export const beachData = {
     ]
   },
   Australia: {
+    //-33.792934, 151.290172
     "NSW": [
-      { name: "Manly", lat: -33.800, lon: 151.287 },
+      { name: "Manly", lat: -33.792934, lon: 151.290172 },
       { name: "Avoca", lat: -33.459, lon: 151.436 },
       { name: "Bondi Beach", lat: -33.891, lon: 151.277 },
       { name: "Byron Bay", lat: -28.647, lon: 153.602 },
