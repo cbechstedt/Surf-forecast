@@ -7,7 +7,7 @@ export const Maps = () => {
   const { selectedBeach } = useMarineData();
   if (!selectedBeach) return null;
   const postion = { lat: selectedBeach.lat, lng: selectedBeach.lon }
-  // -29.784948, -50.024671
+
   return (
 
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
