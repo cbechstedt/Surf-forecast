@@ -1,7 +1,7 @@
 export const beachData = {
   Brazil: {
-    "Rio Grande do Sul": [
-      { name: "Atlantida", lat: -29.654, lon: -50.010 },
+    "Rio Grande do Sul": [ 
+      { name: "Atlantida", lat: -29.784793, lon: -50.024760 },
       { name: "Torres", lat: -29.335, lon: -49.728 },
       { name: "Capão da Canoa", lat: -29.751, lon: -50.009 },
       { name: "Tramandaí", lat: -29.984, lon: -50.133 },

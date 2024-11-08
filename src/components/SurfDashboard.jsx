@@ -48,7 +48,7 @@ export const SurfDashboard = () => {
           </CardHeader>
           <CardContent className='flex flex-row gap-4'>
             <Wind />
-            <p>{windCurrentData?.windSpeed} km/h {degreesToCardinal(windCurrentData?.windDirection)}</p>
+            <p>{degreesToCardinal(windCurrentData?.windDirection)} - {windCurrentData?.windSpeed} km/h</p>
           </CardContent>
         </Card>
 
