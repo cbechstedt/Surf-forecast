@@ -13,7 +13,7 @@ import {
 import { formatDate } from '@/utils/formatDate';
 import { degreesToCardinal } from '@/utils/degreesToCardinal';
 
-export function TableDemo() {
+export function TableForecast() {
   const { marineWeekData, windWeekData } = useMarineData();
   const { time, waveHeight, wavePeriod, waveDirection } = marineWeekData || {};
   const { windSpeedDaily, windDirectionDaily } = windWeekData || {};
@@ -60,7 +60,7 @@ export function TableDemo() {
       <TableCaption>7 days forecast</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>X</TableHead>
+          <TableHead></TableHead>
           {time.map((day) => (
             <TableHead className='text-muted-foreground' key={day}>
               {isSmallScreen ? formatDate(day).slice(0, 3) : formatDate(day)}
