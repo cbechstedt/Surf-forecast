@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -18,6 +18,23 @@ import { TableForecast } from './TableForecast'
 
 export const SurfDashboard = () => {
   const { marineCurrentData, windCurrentData, selectedBeach } = useMarineData();
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1020px)');
+    setIsSmallScreen(mediaQuery.matches);
+
+    const handleResize = (e) => {
+      setIsSmallScreen(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
 
   return (
     <div className='flex flex-col gap-4'>
@@ -62,10 +79,10 @@ export const SurfDashboard = () => {
             <p>{marineCurrentData?.wavePeriod} s</p>
           </CardContent>
         </Card>
-
       </section>
-      <section>
-        <Card className='w-full md:w-2/3 md:max-w-[900px] text-blue bg-slate-600/10 border-blue/80 border-2'>
+
+      <section className='flex gap-8'>
+        <Card className='w-full md:max-w-[900px] text-blue bg-slate-600/10 border-blue/80 border-2'>
           <CardHeader>
             <CardTitle className='text-base sm:text-xl'>Description</CardTitle>
           </CardHeader>
@@ -76,9 +93,28 @@ export const SurfDashboard = () => {
             <ChartOverview />
           </CardContent>
         </Card>
+        {!isSmallScreen &&
+        <div className='size-96'>
+          <Maps />
+        </div>}
       </section>
-      <TableForecast />
-      <Maps />
+
+      <section>
+        <Card className='w-full md:max-w-[900px] text-blue bg-slate-600/10 border-blue/80 border-2'>
+          <CardHeader>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              {selectedBeach ? `7 days forecast for ${selectedBeach?.name}` : ''}
+            </CardDescription>
+            <TableForecast />
+          </CardContent>
+        </Card>
+      </section>
+      {isSmallScreen &&
+        <div className='size-96'>
+          <Maps />
+        </div>}
     </div>
   )
 
