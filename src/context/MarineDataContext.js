@@ -9,6 +9,7 @@ export const MarineDataContext = createContext();
 export const MarineDataProvider = ({ children }) => {
   const [marineCurrentData, setMarineCurrentData] = useState(null);
   const [windCurrentData, setWindCurrentData] = useState(null);
+  const [windWeekData, setWindWeekData] = useState(null);
   const [marineWeekData, setMarineWeekData] = useState(null);
   const [selectedBeach, setSelectedBeach] = useState(null);
 
@@ -19,6 +20,8 @@ export const MarineDataProvider = ({ children }) => {
     setWindCurrentData,
     marineWeekData,
     setMarineWeekData,
+    windWeekData,
+    setWindWeekData,
     selectedBeach,
     setSelectedBeach,
   }

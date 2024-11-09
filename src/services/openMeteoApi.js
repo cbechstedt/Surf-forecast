@@ -1,6 +1,6 @@
 export const marineWeatherDaily = async (lat, lon) => {
   try {
-    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max&timezone=GMT`;
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,wave_direction_dominant&timezone=GMT`;
 
     const response = await fetch(url);
 
@@ -16,16 +16,17 @@ export const marineWeatherDaily = async (lat, lon) => {
       throw new Error('Dados diários não disponíveis');
     }
 
-    const { daily: {time, wave_height_max, wave_period_max} } = data;
+    const { daily: {time, wave_height_max, wave_period_max, wave_direction_dominant} } = data;
 
     // Validação adicional para garantir que os dados existam
-    if (!time || !wave_height_max || !wave_period_max) {
+    if (!time || !wave_height_max || !wave_period_max || !wave_direction_dominant) {
       throw new Error('Dados incompletos retornados pela API');
     }
-
+    
     return {
       waveHeight: wave_height_max,
       wavePeriod: wave_period_max,
+      waveDirection: wave_direction_dominant,
       time
     };
 
@@ -131,3 +132,35 @@ export const windForecastCurrent = async (lat, lon) => {
   }
 }
 
+export const windForecastDaily = async (lat, lon) => {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=wind_speed_10m_max,wind_direction_10m_dominant&timezone=GMT`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Erro na requisição windForecast`);
+    }
+
+    const data = await response.json();
+
+    if (!data.daily) {
+      throw new Error('Dados de vento diário não disponíveis');
+    }
+
+    const { daily: {time, wind_speed_10m_max, wind_direction_10m_dominant} } = data;
+
+    if (!time || !wind_speed_10m_max || !wind_direction_10m_dominant) {
+      throw new Error('Dados incompletos retornados pela API');
+    }
+
+    return {
+      windSpeedDaily: wind_speed_10m_max,
+      windDirectionDaily: wind_direction_10m_dominant,
+      timeDaily: time
+    };
+
+  } catch (error) {
+    console.error('Erro ao buscar os dados de windForecast:', error);
+    return null;
+  }
+}

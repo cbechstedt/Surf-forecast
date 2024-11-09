@@ -14,6 +14,7 @@ import { ChartOverview } from './ChartOverview'
 import { useMarineData } from '../context/MarineDataContext'
 import { degreesToCardinal } from '@/utils/degreesToCardinal'
 import { Maps } from './Maps'
+import Table, { TableDays, TableDemo } from './TableDays'
 
 export const SurfDashboard = () => {
   const { marineCurrentData, windCurrentData, selectedBeach } = useMarineData();
@@ -76,6 +77,7 @@ export const SurfDashboard = () => {
           </CardContent>
         </Card>
       </section>
+      <TableDemo />
       <Maps />
     </div>
   )

@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { marineWeatherCurrrent, windForecastCurrent, marineWeatherDaily } from '../services/openMeteoApi';
+import { marineWeatherCurrrent, windForecastCurrent, marineWeatherDaily, windForecastDaily } from '../services/openMeteoApi';
 import { useMarineData } from '../context/MarineDataContext';
 import { beachData } from '@/utils/beaches';
 
@@ -23,7 +23,7 @@ export const Dropdowns = () => {
   const [marineForecastData, setMarineForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { setMarineCurrentData, setWindCurrentData, setMarineWeekData, selectedBeach,setSelectedBeach } = useMarineData();
+  const { setMarineCurrentData, setWindCurrentData, setMarineWeekData, selectedBeach, setSelectedBeach, setWindWeekData } = useMarineData();
 
   // Carregar regiões baseado no país selecionado
   const regions = selectedCountry ? Object.keys(beachData[selectedCountry]) : [];
@@ -53,6 +53,9 @@ export const Dropdowns = () => {
         const marineWeekData = await marineWeatherDaily(lat, lon);
         setMarineWeekData(marineWeekData);
 
+        const windWeekData = await windForecastDaily(lat, lon);
+        setWindWeekData(windWeekData);
+
       } catch (error) {
         console.error('Erro ao buscar os dados da API:', error);
         setMarineCurrentData(null);
@@ -64,7 +67,7 @@ export const Dropdowns = () => {
     };
 
     fetchMarineData();
-  }, [selectedBeach, setMarineCurrentData, setMarineWeekData, setWindCurrentData]);
+  }, [selectedBeach, setMarineCurrentData, setMarineWeekData, setWindCurrentData, setWindWeekData]);
 
   return (
     <div className="flex flex-col gap-7">
