@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { marineWeatherCurrrent, windForecastCurrent, marineWeatherDaily, windForecastDaily } from '../services/openMeteoApi';
+import { marineForecastCurrent, weatherForecastCurrent, marineForecastDaily, weatherForecastDaily } from '../services/openMeteoApi';
 import { useMarineData } from '../context/MarineDataContext';
 import { beachData } from '@/utils/beaches';
 
@@ -44,18 +44,18 @@ export const Dropdowns = () => {
       setLoading(true);
       try {
         const { lat, lon } = selectedBeach;
-        const marineCurrentData = await marineWeatherCurrrent(lat, lon);
+        const marineCurrentData = await marineForecastCurrent(lat, lon);
         setMarineCurrentData(marineCurrentData);
 
-        const windCurrentData = await windForecastCurrent(lat, lon);
+        const windCurrentData = await weatherForecastCurrent(lat, lon);
         setWindCurrentData(windCurrentData);
 
-        const marineWeekData = await marineWeatherDaily(lat, lon);
+        const marineWeekData = await marineForecastDaily(lat, lon);
         setMarineWeekData(marineWeekData);
 
-        const windWeekData = await windForecastDaily(lat, lon);
+        const windWeekData = await weatherForecastDaily(lat, lon);
         setWindWeekData(windWeekData);
-
+        
       } catch (error) {
         console.error('Erro ao buscar os dados da API:', error);
         setMarineCurrentData(null);

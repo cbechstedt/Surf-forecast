@@ -1,12 +1,12 @@
-export const marineWeatherDaily = async (lat, lon) => {
+export const marineForecastDaily = async (lat, lon) => {
   try {
-    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,wave_direction_dominant&timezone=GMT`;
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,wave_direction_dominant&timezone=auto`;
 
     const response = await fetch(url);
 
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
-      throw new Error(`Erro na requisição MarineWeatherDaily`);
+      throw new Error(`Erro na requisição marineForecastDaily`);
     }
 
     const data = await response.json();
@@ -36,15 +36,15 @@ export const marineWeatherDaily = async (lat, lon) => {
   }
 };
 
-export const marineWeatherCurrrent = async (lat, lon) => {
+export const marineForecastCurrent = async (lat, lon) => {
   try {
-    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=GMT`;
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction,wave_period&timezone=auto`;
 
     const response = await fetch(url);
 
     // Verifica se a resposta foi bem sucedida
     if (!response.ok) {
-      throw new Error(`Erro na requisição MarineWeatherCurrrent`);
+      throw new Error(`Erro na requisição marineForecastCurrent`);
     }
 
     const data = await response.json();
@@ -105,9 +105,9 @@ export const geoLocation = async (name) => {
   }
 }
 
-export const windForecastCurrent = async (lat, lon) => {
+export const weatherForecastCurrent = async (lat, lon) => {
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m&timezone=auto`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -132,9 +132,9 @@ export const windForecastCurrent = async (lat, lon) => {
   }
 }
 
-export const windForecastDaily = async (lat, lon) => {
+export const weatherForecastDaily = async (lat, lon) => {
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=wind_speed_10m_max,wind_direction_10m_dominant&timezone=GMT`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=wind_speed_10m_max,wind_direction_10m_dominant,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -142,7 +142,8 @@ export const windForecastDaily = async (lat, lon) => {
     }
 
     const data = await response.json();
-
+    console.log(data);
+    
     if (!data.daily) {
       throw new Error('Dados de vento diário não disponíveis');
     }
